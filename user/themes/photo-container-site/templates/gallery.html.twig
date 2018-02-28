@@ -1,0 +1,143 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+
+{%
+  include 'partials/components/navbar-top.twig' with {
+  'profile': grav.user.profile,
+  'active': 'gallery'
+  }
+%}
+
+<div class="app page-gallery">
+  {% if grav.user.profile == 3 %}
+  {%
+    include 'partials/components/page-header.twig' with {
+      'title': 'Galeria',
+      'show': ['title', 'filters-list'],
+      'profile': grav.user.profile
+    }
+  %}
+  {% else %}
+    {%
+    include 'partials/components/page-header.twig' with {
+    'title': 'Galeria',
+    'show': ['title','add-gallery'],
+    'profile': grav.user.profile
+    }
+    %}
+  {% endif %}
+
+  <div class="container">
+    <div class="row row-sm">
+      {% if grav.user.profile == 3 %}
+      <div class="col-md-3">
+        <div class=" gallery-intro-step-1-1">
+          {{ include('partials/components/filters-sidebar.twig') }}
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div id="gallery" class="row row-sm gallery-intro-step-0">
+        </div>
+      </div>
+      {% else %}
+      <div class="col-md-12">
+        {{ include('partials/components/filters-list.twig') }}
+        <div id="gallery" class="row row-sm gallery-intro-step-0">
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <a id="add-page" style="display:none;" data-page="1" href="#">Próxima página</a>
+
+  {% include 'partials/components/footer.twig' %}
+</div>
+<script>
+$( document ).ready(function() {
+  Event.loadTags(localStorage.endpoint, 'checkbox')
+
+  Event.search(localStorage.domain);
+
+  $('#gallery').lightGallery({
+      subHtmlSelectorRelative: true
+  });
+
+  $( ".add-gallery-click" ).unbind();
+
+  $("#add-page").on('click', function (e) {
+    e.preventDefault()
+    $(this).data().page += 1
+
+    Event.search(localStorage.domain)
+  })
+});
+
+var introSteps;
+
+var profile = {{ grav.user.profile }}
+
+if(profile == 3) {
+  introSteps = [
+    {
+      intro: "Olá Publisher, seja bem-vindo ao FotoContainer. Aqui estão alguns detalhes sobre esta plataforma…"
+    },
+    {
+      element: document.querySelector('.gallery-intro-step-0'),
+      intro: "Esta é a sua galeria e é nesta página que você poderá criar os seus albums de fotos."
+    },
+    {
+      element: document.querySelector('.gallery-intro-step-1-1'),
+      intro: "Utilize este filtro para encontrar exatamente o tipo de trabalho que você quer publicar."
+    },
+    {
+      element: document.querySelector('.gallery-intro-step-2'),
+      intro: "Clique aqui para completar o seu perfil.",
+      position: "bottom"
+    },
+    {
+      intro: "Prontinho... você está pronto para utilizar o FotoContainer e se tiver mais alguma dúvida mande uma mensagem para equipe@fotocontainer.com.br."
+    },
+
+  ];
+}else {
+  introSteps = [
+    {
+      intro: "Olá Fotógrafo, seja bem-vindo ao FotoContainer. Aqui estão alguns detalhes sobre esta plataforma…"
+    },
+    {
+      element: document.querySelector('.gallery-intro-step-0'),
+      intro: "Esta é a sua galeria e é nesta página que você poderá criar os seus albums de fotos."
+    },
+    {
+      element: document.querySelector('.gallery-intro-step-1'),
+      intro: "Clique aqui para criar um novo album e lembre de colocar todos os detalhes deste novo evento. Blogueiras amam publicar trabalhos que mostram todos os detalhes."
+    },
+    {
+      element: document.querySelector('.gallery-intro-step-2'),
+      intro: "Clique aqui para completar o seu perfil.",
+      position: "bottom"
+    },
+    {
+      intro: "Prontinho... você está pronto para utilizar o FotoContainer e se tiver mais alguma dúvida mande uma mensagem para equipe@fotocontainer.com.br."
+    },
+
+  ];
+}
+
+console.log(profile);
+function startIntro(){
+  var intro = introJs();
+  intro.setOptions({
+    nextLabel: "Próximo",
+    prevLabel: "Anterior",
+    skipLabel: "Pular",
+    doneLabel: "Finalizar",
+    steps: introSteps
+  });
+
+  intro.start();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+name: Photo Container
+version: 0.1.0
+description: Plugin para o Tema FotoContainer
+icon: plug
+author:
+  name: Luiz Nunes
+  email: luizfsnunes@gmail.com
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        basics:
+          type: tab
+          title: 'Básico'
+          fields:
+            api_endpoint:
+              type: text
+              label: API URL
+              help: URL da API utilizada pelo Plugin
+            domain:
+              type: text
+              label: URL do Site
+              help: URL do site do Photo Container
+            image_cdn:
+              type: text
+              label: URL com a CDN das fotos
+              help: URL com a CDN das fotos
+            verify_users_slots:
+                type: toggle
+                label: Verificar slots para cadastro
+                highlight: 1
+                help: Verificar slots para cadastro
+                options:
+                    1: Sim
+                    0: Não
+                validate:
+                    type: bool
+        login:
+          type: tab
+          title: 'Login'
+          fields:
+            login_route:
+              type: text
+              label: Rota para o Login
+              help: Rota que recebe o POST da tela de Login
+              default: '/do-login'
+            input_pwd:
+              type: text
+              label: Campo da senha
+              help: ID do input da senha
+            input_username:
+              type: text
+              label: Campo do username
+              help: ID do input do username
+        routes:
+          type: tab
+          title: 'Rotas Protegidas'
+          fields:
+            protected_routes:
+              type: list
+              style: vertical
+              fields:
+                .text:
+                  type: text
+                  label: Rota

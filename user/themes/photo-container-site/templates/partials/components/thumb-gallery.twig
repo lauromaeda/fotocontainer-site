@@ -1,0 +1,72 @@
+{% set thumb_class = 'card thumb-gallery ratio-1by1 thumb-' ~ sigla %}
+{% if type %}
+  {% set thumb_class = thumb_class ~ ' thumb-gallery-' ~ type %}
+{% endif %}
+{% if not col %}
+  {% set col = "col-md-3" %}
+{% endif %}
+
+{% set progressbar = 0 %}
+<div id="{{id}}" class="{{col}}" data-src="{{img_src}}">
+  <div class="{{thumb_class}}">
+    {% if type == "dropzone" %}
+    <img alt='' {{img_attr}} src="">
+    {% else %}
+    <div class="card-thumb-image" style="background-image: url({{img_src}});"></div>
+    {% endif %}
+    {% if show %}
+    <div class="card-text">
+      <div class="card-text-inner">
+
+        {% if show %}
+          {% for key, value in show %}
+
+            {% if value == 'upload_progress' %}
+              {% set progressbar = 1 %}
+            {% endif %}
+
+            {% if value == 'album-type' %}        <p class="album-type">{{ data_album_type }}</p>{% endif %}
+            {% if value == 'image-count' %}       <p class="image-count"><span>{{ data_image_count }}</span> fotos</p> {% endif %}
+            {% if value == 'album-name' %}        <p class="album-name">{{ data_album_name }}</p>{% endif %}
+            {% if value == 'date' %}              <p class="">{{ data_album_date }}</p>{% endif %}
+            {% if value == 'photo-label' %}       <p class="photo-label">{{ data_photo_label }}</p>{% endif %}
+            {% if value == 'photo-name' %}        <p class="photo-name">{{ data_photo_name }}</p>{% endif %}
+            {% if value == 'fav-count' %}         <p class="fav-count"><i class="icon-star"></i>{{ data_fav_count }}</p>{% endif %}
+            {% if value == 'icon' %}              <p class="icon"><i class="icon-search"></i></p>{% endif %}
+
+            {% if value == 'nav' %}
+              <ul class="nav">
+              {% for value_nav in nav %}
+                <li class="nav-item">
+
+                  {% if value_nav == 'fav' %}       <a class="nav-link" href="#"><i class="icon-star"></i></a>{% endif %}
+                  {% if value_nav == 'edit' %}      <a class="nav-link" href="#"><i class="icon-pencil"></i></a>{% endif %}
+                  {% if value_nav == 'trash' %}     <a class="nav-link" {{remove_attr}} href="#"><i class="icon-trash"></i></a>{% endif %}
+                  {% if value_nav == 'pin' %}
+                    <a class="nav-link photo-pin" href="#">
+                      <i class="icon-pin" style="display:none"></i>
+                      <i class="icon-pin-outline"></i>
+                    </a>
+                  {% endif %}
+                  {% if value_nav == 'search' %}    <a class="nav-link" href="#"><i class="icon-search"></i></a>{% endif %}
+                  {% if value_nav == 'download' %}  <a class="nav-link" href="#"><i class="icon-download"></i></a>{% endif %}
+
+                </li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+
+          {% endfor %}
+        {% endif %}
+
+      </div>
+    </div>
+    {% endif %}
+    {% if progressbar == 1 %}
+    <div class="progressbar" role="progressbar">
+      <div style="width:0%;" data-dz-uploadprogress></div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>

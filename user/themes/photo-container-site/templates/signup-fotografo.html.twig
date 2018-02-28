@@ -1,0 +1,101 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+
+<div class="app page-login page-signup" style="background-image: url({{ url('theme://_temp/signup-bg.png') }})">
+
+  <div class="page-login-inner">
+
+    <div class="login-box">
+    <form class="form-signup-photographer form-validate">
+      <div class="row row-md">
+
+      <div class="col-md-6">
+        <!-- <h2 class='title text-uppercase'>Selecione um plano</h2> -->
+        <h6 class='subtitle text-white text-center text-uppercase mb-4 mt-5 pt-4'>Seja um dos 200 fundadores<br>e tenha vantagens para sempre.</h6>
+        <div data-toggle="buttons">
+          <label class="active btn btn-ph btn-plan btn-outline-secondary btn-check btn-lg text-uppercase btn-block">
+            <input type="radio" name="input_plan" autocomplete="off" checked>
+            <span>Valor anual promocional</span>
+            <!-- <small>Pague <b>5</b> meses e leve <b>6</b></small> -->
+            <small>R$<b>200,00</b></small>
+          </label>
+          <!-- <label class="btn btn-ph btn-plan btn-outline-secondary btn-check btn-lg text-uppercase btn-block">
+            <input type="radio" name="input_plan" autocomplete="off">
+            <span>Primeiro mês grátis</span>
+            <small>Cobrança após o primeiro mês, caso não cancele sua conta</small>
+            <small>R$<b>39</b></small>
+          </label>
+          <label class="btn btn-ph btn-plan btn-outline-secondary btn-check btn-lg text-uppercase btn-block">
+            <input type="radio" name="input_plan" autocomplete="off">
+            <span>Assinatura semestral</span>
+            <small>Pague <b>5</b> meses e leve <b>6</b></small>
+            <small>R$<b>194,90</b></small>
+          </label>
+          <label class="btn btn-ph btn-plan btn-outline-secondary btn-check btn-lg text-uppercase btn-block">
+            <input type="radio" name="input_plan" autocomplete="off">
+            <span>Assinatura anual</span>
+            <small>Pague <b>9</b> meses e leve <b>12</b></small>
+            <small>R$<b>349,90</b></small>
+          </label> -->
+        </div>
+        <label class="error msg-error" for="input_plan" style="display: none;"></label>
+        <p class='text-white text-center mt-4'> * Valor normal do plano anual R$349,00</p>
+    </div>
+
+      <div class="col-md-6">
+        <h2 class='title text-uppercase'>Insira seus dados</h2>
+          <div class="form-group">
+            <label for="input_name" class="sr-only">Nome</label>
+            <input type="text" id="input_name" name="input_name" class="form-control form-control-login" placeholder="Nome" required="">
+            <label class="error msg-error" for="input_name" style="display: none;"></label>
+          </div>
+          <div class="form-group">
+            <label for="input_email" class="sr-only">E-mail</label>
+            <input type="email" name="input_email" id="input_email" class="form-control form-control-login" placeholder="E-mail" required="">
+            <label class="error msg-error" for="input_email" style="display: none;"></label>
+          </div>
+          <div class="form-group">
+            <label for="input_remail" class="sr-only">Confirmar e-mail</label>
+            <input type="email" name="input_remail" class="form-control form-control-login" placeholder="Confirmar e-mail" required="">
+            <label class="error msg-error" for="input_remail" style="display: none;"></label>
+          </div>
+          <div class="form-group">
+            <label for="input_password" class="sr-only">Senha</label>
+            <input type="password" id="input_password" name="input_password" class="form-control form-control-login" placeholder="Senha" required="">
+            <label class="error msg-error" for="input_password" style="display: none;"></label>
+          </div>
+          <div class="form-check form-check-alt text-white text-center">
+            <label class="form-check-label">
+              <input type="checkbox" name="input_terms">
+              <span>Concordo com as <a href="/user/themes/photo-container-site/resources/TERMOS-E-CONDICOES-DE-USO.pdf" target="_blank" class="text-white link">Condições de uso</a></span>
+            </label>
+            <label class="error msg-error" for="input_terms" style="display: none;"></label>
+        </div>
+          <div class="text-center mt-4">
+            <button class="btn btn-submit btn-outline-secondary" type="submit">Entrar</button>
+          </div>
+          <div class="text-center pt-3">
+            <p class="text-white text-muted d-block m-0">Já possue um perfil?</p>
+            <a class="text-white text-uppercase link" href="page-signin.php">
+              Acessar seu perfil
+            </a>
+          </div>
+          <input type="hidden" name="user[profile][]" value="/profiles/1">
+      </div>
+
+    </div>
+  </form>
+    <!-- a -->
+    </div>
+    <!-- a -->
+
+    {{ include('partials/components/login-footer.twig') }}
+  </div>
+</div>
+
+<script type="text/javascript"
+        src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+</script>
+
+{% endblock %}

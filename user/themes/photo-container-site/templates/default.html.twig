@@ -1,0 +1,88 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+<div class="app page-home">
+  <div id="inicio">
+    {{ include('partials/components/home/slider-top.twig') }}
+    {{ include('partials/components/home/navbar.twig') }}
+  </div>
+  <div id="praquem">
+    {{ include('partials/components/home/who.twig') }}
+    {{ include('partials/components/home/banner-1.twig') }}
+  </div>
+  <div id="comofunciona">
+    {{ include('partials/components/home/how.twig') }}
+    {{ include('partials/components/home/slider-tags.twig') }}
+  </div>
+  <div id="planos">
+    {{ include('partials/components/home/plans.twig') }}
+    {{ include('partials/components/home/gallery2.twig') }}
+    {{ include('partials/components/home/slider-quotes.twig') }}
+    {{ include('partials/components/home/gallery.twig') }}
+    {#{ include('partials/components/home/slider-cols.twig') }#}
+  </div>
+  <div id="quemsomos">
+    {#{ include('partials/components/home/about.twig') }#}
+    {{ include('partials/components/home/banner-2.twig') }}
+  </div>
+
+  {{ include('partials/components/footer.twig') }}
+</div>
+
+<script>
+$( document ).ready(function(){
+  $('body').scrollspy({ target: '.navbar-spy', offset: 120 });
+
+  $("#home-slider-top .slider-inner").lightSlider({
+    item: 1,
+    controls: false
+  });
+  $("#home-slider-quotes .slider-inner").lightSlider({
+    item: 1,
+    controls: false
+  });
+  $("#home-slider-tags .slider-inner").lightSlider({
+    item: 1,
+    pager: false,
+    controls: true
+  });
+  $("#home-slider-cols .slider-inner").lightSlider({
+    item: 4,
+    loop: false,
+    pager: false,
+    slideMargin: 30,
+    controls: true,
+    responsive : [
+      {
+      breakpoint:992,
+      settings: {
+        item:3,
+        slideMove:3,
+      }
+    },
+      {
+      breakpoint:768,
+      settings: {
+        item:2,
+        slideMove:2,
+      }
+    },
+    {
+      breakpoint:576,
+      settings: {
+        item:1,
+        slideMove:1,
+      }
+    }
+  ]
+  });
+
+
+  $('#block-gallery').lightGallery({
+      subHtmlSelectorRelative: true
+  });
+
+});
+</script>
+
+{% endblock %}

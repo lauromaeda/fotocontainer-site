@@ -1,0 +1,23 @@
+{% set slider_images = [
+  url('theme://_temp/logos/1.png'),
+  url('theme://_temp/logos/2.png'),
+  url('theme://_temp/logos/3.png'),
+  url('theme://_temp/logos/4.png'),
+  url('theme://_temp/logos/5.png')
+  ]
+ %}
+<div id="home-slider-cols" class="carousel slide slider slider-cols">
+<div class="container">
+
+  <div class="slider-inner" role="listbox">
+    {% set i = 0 %}
+    {% for image in slider_images %}
+    <div class="slider-item">
+      <img src="{{image}}">
+    </div>
+    {% set i = i+1 %}
+    {% endfor %}
+  </div>
+
+</div>
+</div>

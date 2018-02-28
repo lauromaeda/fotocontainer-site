@@ -1,0 +1,43 @@
+<div class="block-gallery">
+<h2 class="title text-uppercase text-center">O que anda rolando</h2>
+<h5 class="title text-uppercase text-center">Confira nossas conexôes mais recentes</h5>
+<div class="row row-xxs" id="block-gallery">
+
+{% set slider_images = [
+  url('theme://resources/images/home/1.jpg'),
+  url('theme://resources/images/home/2.jpg'),
+  url('theme://resources/images/home/3.jpg'),
+  url('theme://resources/images/home/4.jpg'),
+  url('theme://resources/images/home/5.jpg'),
+  url('theme://resources/images/home/6.jpg'),
+  url('theme://resources/images/home/7.jpg'),
+  url('theme://resources/images/home/8.jpg'),
+  url('theme://resources/images/home/9.jpg'),
+  url('theme://resources/images/home/10.jpg'),
+  url('theme://resources/images/home/11.jpg'),
+  url('theme://resources/images/home/12.jpg'),
+  url('theme://resources/images/home/31.jpg'),
+  url('theme://resources/images/home/14.jpg'),
+  url('theme://resources/images/home/15.jpg'),
+  url('theme://resources/images/home/16.jpg'),
+  url('theme://resources/images/home/17.jpg'),
+  url('theme://resources/images/home/18.jpg'),
+]%}
+{% for image in slider_images %}
+  {%
+  include 'partials/components/thumb-gallery.twig' with {
+    'type': 'home',
+    'col': 'col-md-2 col-sm-4 col-6',
+
+
+    'img_src': image,
+
+    'show': [
+      'icon'
+    ]
+  }
+  %}
+{% endfor %}
+
+</div>
+</div>

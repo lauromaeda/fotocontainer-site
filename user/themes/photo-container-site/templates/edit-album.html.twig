@@ -1,0 +1,223 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+
+{%
+include 'partials/components/navbar-top.twig' with {
+  'profile': grav.user.profile,
+  'active': 'gallery',
+  'class': 'bg-ph'
+}
+%}
+
+<div class="app page-gallery page-album">
+{%
+include 'partials/components/page-header.twig' with {
+  'profile': grav.user.profile,
+  'title': 'Álbum',
+  'show': ['title', 'add-image']
+}
+%}
+
+  <div class="container">
+    <div id="previews" class="row row-md template"></div>
+
+    <div class="row row-md">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Título *</label>
+          <input id="input-title" name="input-title" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Descrição *</label>
+          <textarea id="input-description" rows="12" name="input-description" class="form-control" required>
+          </textarea>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome da Noiva *</label>
+          <input id="input-bride" name="input-bride" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Nome do Noivo *</label>
+          <input id="input-groom" name="input-groom" type="text" class="form-control" required>
+        </div>
+        <div class="row row-sm">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Categoria *</label>
+              <select id="select-categories" name="state" name="select-categories" class="select2-edit form-control" required>
+                <option selected="" value="" disabled="disabled">Selecione</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>País *</label>
+              <select id="input-country" name="input-country" class="select2-edit form-control" required>
+                <option selected="" value="" disabled="disabled">Selecione</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Data do evento *</label>
+              <input id="input-eventdate" name="input-eventdate" type="text" class="form-control datepicker" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mt-4">
+          <label>Preferências *</label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input id="input-approval-general" name="input-approval" type="radio" class="form-check-input" required>
+            <span>Liberado para publicação</span>
+          </label>
+          <a class="btn-help" data-toggle="tooltip" data-placement="top" title="Esta galeria é liberada para todos os publishers baixarem as fotos imediatamente."><i class="icon-help-circled"></i></a>
+          <!-- <label class="error msg-error" for="input-approval-general" style="display: none;"></label> -->
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input id="input-approval-photographer" name="input-approval" type="radio" class="form-check-input" required>
+            <span>Necessita liberação do fotógrafo</span>
+          </label>
+          <a class="btn-help" data-toggle="tooltip" data-placement="top" title="Esta galeria deve ser liberada pelo fotógrafo para cada publisher que quiser baixar as fotos."><i class="icon-help-circled"></i></a>
+          <!-- <label class="error msg-error" for="input-approval" style="display: none;"></label> -->
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input id="input-approval-bride" name="input-approval" type="radio" class="form-check-input" required>
+            <span>Necessita liberação dos noivos</span>
+          </label>
+          <a class="btn-help" data-toggle="tooltip" data-placement="top" title="Esta galeria deve ser liberada pelo fotógrafo, com o consentimento dos noivos, para cada publisher que quiser baixar as fotos."><i class="icon-help-circled"></i></a>
+          <label class="error msg-error" for="input-approval" style="display: none;"></label>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-check- mt-3">
+      <label class="form-check-label">
+        <input id="input-terms" name="input-terms" type="checkbox" class="form-check-input" required>
+        <span>Aceito os <a class="link stopPropagation">Termos e Condições de uso</a></span>
+      </label>
+      <label class="error msg-error" for="input-terms" style="display: none;"></label>
+    </div>
+    <button type="button" class="btn btn-green btn-lg mt-2 modal-broadcast" name="button">
+      Enviar para publishers
+    </button>
+    <button type="button" class="btn btn-green btn-lg mt-2 edit-album">
+      Salvar
+    </button>
+
+  </div>
+
+{% include 'partials/components/modal-album.twig' %}
+{% include 'partials/components/modal-publish.twig' %}
+{% include 'partials/components/footer.twig' with {'class': 'bg-ph'} %}
+</div>
+
+<script>
+  $( document ).ready(function() {
+    Event.id = location.search.split("=")[1]
+
+    var photoHtml = '\
+        <div class="col-lg-6 col-md-4 col-sm-6 col-12 dz-preview" data-src="">\
+          <div class="card thumb-gallery ratio-16by9 thumb-">\
+            <div class="card-thumb-image"><img style="width: auto;height: 100%;" data-dz-thumbnail /></div>\
+            <div class="progressbar" role="progressbar">\
+              <div data-dz-uploadprogress></div>\
+            </div>\
+          </div>\
+        </div>\
+      ';
+
+    new Dropzone('.template', {
+      uploadMultiple: true,
+      maxFiles: Event.maxFilesLimit,
+      acceptedFiles: ".png, .jpg, .jpeg",
+      parallelUploads: 10,
+      maxFilesize: 2,
+      previewTemplate: photoHtml,
+      clickable: '.add-image-album',
+      url: localStorage.endpoint+'photo',
+      previewsContainer: "#previews",
+      dictFileTooBig: 'dictFileTooBig',
+      init: function() {
+        this.on("success", function(file, responseText) {
+          if (responseText.length === 0) {
+            return;
+          }
+
+          file.previewElement.attributes["0"].nodeValue = responseText[0].filename.substr(0,36);
+          Event.updateFeedback();
+          console.info("init");
+        });
+        this.on('sending', function(file, xhr, formData) {
+          formData.append('event_id', Event.id);
+          console.info("sending");
+        });
+        this.on("queuecomplete", function (file) {
+          console.info("queuecomplete");
+          Event.loadPhotos();
+        });
+        this.on("addedfile", function(file) {
+          console.info("addedfile");
+        });
+        this.on("processing", function(file) {
+          console.info("processing");
+        });
+        this.on("removedfile", function(file) {
+          Event.updateFeedback();
+          console.info("removedfile");
+        });
+        this.on("error", function(file, message) {
+          if (message === 'dictFileTooBig') {
+            $('.error-msg').show()
+          }
+
+          this.removeFile(file);
+          console.error(message);
+        });
+      },
+      method: "POST",
+      withCredentials: false,
+      headers: {
+        "Cache-Control": null,
+        "X-Requested-With": null
+      }
+    });
+
+    Event.viewEvent(localStorage.endpoint)
+
+    $('.datepicker').datepicker({
+      format: 'dd-mm-yyyy'
+    });
+
+    $(".modal-broadcast").on('click', function (e) {
+      if($('#input-terms:checked').length === 0) {
+        Utils.show_modal_alert('default', '', 'Você deve aceitar os Temos e condições de uso.');
+        return
+      }
+
+      Event.broadcastPublishers(localStorage.endpoint)
+        .then(function () {
+          $('.modal-album').modal()
+        })
+    });
+
+    $('.edit-album').on('click', function () {
+      if($('#input-terms:checked').length === 0) {
+        Utils.show_modal_alert('default', '', 'Você deve aceitar os Temos e condições de uso.');
+        return
+      }
+
+      Event.editHandler(localStorage.endpoint, localStorage.user)
+        .then(function () {
+          Utils.show_modal_alert('success', '', 'Atualização realizada com sucesso.');
+        })
+    })
+  })
+</script>
+{% endblock %}

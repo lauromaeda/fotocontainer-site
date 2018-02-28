@@ -1,0 +1,80 @@
+{% if not ratio %}
+  {% set ratio = 'ratio-1by1' %}
+{% endif %}
+{% set thumb_class = 'card thumb-gallery ' ~ ratio ~ ' thumb-' ~ sigla %}
+
+{% if type %}
+    {% set thumb_class = thumb_class ~ ' thumb-gallery-' ~ type %}
+{% endif %}
+
+{% if not col %}
+    {% set col = "col-md-3" %}
+{% endif %}
+
+<div class="{{col}} thumb-item search-result-thumb" data-src="{{ image_cdn }}{{ data.watermark }}" id="event-thumb-{{ data.id }}">
+  <div class="{{thumb_class}}">
+    <div class="card-thumb-image" style="background-image: url({{ image_cdn }}{{ data.thumb }});"></div>
+    <div class="card-text">
+      <div class="card-text-inner">
+        {% if data.context in ["gallery_photographer", "gallery_publisher"] %}
+          <p class="album-name">{{ data.title }}</p>
+          <p class="album-type">{{ data.category }}</p>
+          <p class="image-count"><span>{{ data.photos }}</span> fotos</p>
+          <p class="date">Evento em {{ data.eventdate }}</p>
+          <p class="fav-count">{{ data.likes }} Likes</p>
+        {% endif %}
+
+        {% if data.context == "gallery_photographer" and profile == 'photographer' %}
+        <ul class="nav">
+          <li class="nav-item"><a data-toggle="tooltip" data-placement="top" class="nav-link event-remove" title="Remover" data-event="{{ data.id }}" ><i class="icon-trash"></i></a></li>
+          <li class="nav-item"><a data-toggle="tooltip" data-placement="top" class="nav-link" title="Usar Como Capa" href="./gallery/edit-album?id={{ data.id }}"><i class="icon-pencil"></i></a></li>
+        </ul>
+        {% endif %}
+
+        {% if data.context == "gallery_publisher" and profile == 'publisher' %}
+        <p class="photo-name">Fotógrafo {{ data.photographer }}</p>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/gallery/view-album?id={{ data.id }}"><i class="icon-search"></i></a>
+          </li>
+        </ul>
+        {% endif %}
+
+        {% if data.context == "gallery_photos_publisher" %}
+        <ul class="nav">
+          <li class="nav-item view-image">
+            <a class="nav-link" data-toggle="tooltip" data-placement="top" title="Visualizar">
+              <i class="icon-search"></i>
+            </a>
+          </li>
+
+          <li data-toggle="tooltip" data-placement="top" title="Favoritar" class="nav-item star-image">
+            <a {% if data.liked == true %}style="display: none;"{% endif %} class="nav-link photo-like" data-likephoto="{{ data.id }}" ><i class="icon-star"></i></a>
+            <a {% if data.liked == false %}style="display: none;"{% endif %} class="nav-link photo-dislike" data-dislikephoto="{{ data.id }}" ><i class="icon-star-full"></i></a>
+          </li>
+
+          {% if authorized == true %}
+          <li class="nav-item download-image" data-toggle="tooltip" data-placement="top" title="Baixar Imagem"><a class="nav-link" data-link-for-action="{{ api_endpoint }}photo/{{ data.id }}/user/{{ logged_user_id }}/download"><i class="icon-download"></i></a></li>
+          <li class="nav-item download-image" style="display:none;"><input type="checkbox" value="{{ data.id }}" name="photo-select" id="photo-select-{{ data.id }}"/></li>
+          {% else %}
+          <li class="nav-item download-image no-auth"><a class="nav-link" href="{{ api_endpoint }}events/{{ event_id }}/request/user/{{ logged_user_id }}"><i class="icon-download"></i></a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+
+        {% if data.context == "gallery_publisher_historic" %}
+        <ul class="nav">
+          <a {% if data.liked == true %}style="display: none;"{% endif %} class="nav-link photo-like" data-likephoto="{{ data.photo_id }}" ><i class="icon-star"></i></a>
+          <a {% if data.liked == false %}style="display: none;"{% endif %} class="nav-link photo-dislike" data-dislikephoto="{{ data.photo_id }}" ><i class="icon-star-full"></i></a>
+
+          {% if data.authorized == true %}
+          <li class="nav-item download-image"><a class="nav-link" href="{{ api_endpoint }}photo/{{ data.event_id }}/user/{{ logged_user_id }}/download"><i class="icon-download"></i></a></li>
+          {% else %}
+          <li class="nav-item download-image no-auth"><a class="nav-link" href="{{ api_endpoint }}events/{{ data.event_id }}/request/user/{{ logged_user_id }}"><i class="icon-download"></i></a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

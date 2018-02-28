@@ -1,0 +1,32 @@
+{% extends 'partials/base.html.twig' %}
+{% import "functions.twig" as functions %}
+
+{% block content %}
+
+
+    <div class="app page-approvals">
+        {%
+        include 'partials/components/navbar-top.twig' with {
+        'profile': grav.user.profile,
+        'active': 'approvals',
+        'class': functions.profileClass(grav.user.profile)
+        }
+        %}
+        {%
+          include 'partials/components/page-header.twig' with {
+            'title': 'Aprovação de downloads',
+            'show': ['title']
+          }
+        %}
+      <div class="container">
+        <ul class="list-group"></ul>
+      </div>
+
+
+    </div>
+
+  {% include 'partials/components/footer.twig' with {'class': functions.profileClass(grav.user.profile)} %}
+<script>
+  Approval.render(localStorage.endpoint, localStorage.user)
+</script>
+{% endblock %}

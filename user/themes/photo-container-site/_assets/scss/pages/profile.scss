@@ -1,0 +1,117 @@
+.page-profile {
+  .profile-header {
+    height: 340px;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    margin-bottom: 60px;
+
+    .btn-upload {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      overflow: hidden;
+      cursor: pointer;
+
+      input {
+        position: absolute;
+        left: -20px;
+        top: -30px;
+        width: 300px;
+        height: 100px;
+        opacity: 0;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .card {
+    &>.card-title {
+      text-align: center;
+      background-color: $gray-lightest;
+      padding: 40px 0;
+    }
+  }
+  .block-who {
+    padding: 100px 0 150px;
+
+    h2 {
+      font-size: 40px;
+      font-weight: 400;
+    }
+    h6 {
+      color: #8F8F8F;
+    }
+    .who-card {
+      text-align: center;
+
+      h6 {
+        color: $gray;
+        font-weight: 500;
+        font-size: 18px;
+      }
+      p {
+        color: $gray;
+      }
+      i{
+        font-size: 160px;
+        line-height: 160px;
+      }
+
+      &.who-card-center {
+        color: $gray;
+        h5 {
+          font-weight: 500;
+        }
+        .icon-arrow-mid {
+          transform: rotate(180deg);
+          display: block;
+          font-size: 90px;
+          line-height: 90px;
+        }
+
+        h5+  .icon-arrow-mid {
+          transform: rotate(0);
+        }
+      }
+
+      &.who-card-link {
+        i {
+          display: block;
+          margin-bottom: 30px;
+        }
+
+        border-radius: 4px;
+        transition: .3s;
+        cursor: pointer;
+        * {
+          transition: .3s;
+        }
+      }
+
+      &.who-card-ph {
+        i {
+          color: $color-ph;
+        }
+        &:hover {
+          background-color: $color-ph;
+          * {
+            color: $white!important;
+          }
+        }
+      }
+      &.who-card-pu {
+        i {
+          color: $color-pu;
+        }
+        &:hover {
+          background-color: $color-pu;
+          * {
+            color: $white!important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.link {
+  position: relative;
+  color: $gray-dark;
+  cursor: pointer;
+
+  outline: none!important;
+  box-shadow: none!important;
+  text-decoration: none!important;
+
+  &:after {
+    content: "";
+    position: absolute;
+    background: $gray-dark;
+    bottom: -1px;
+    right: 50%;
+    left: 50%;
+    height: 1px;
+    transition: .3s;
+    opacity:0;
+  }
+  &:hover {
+    text-decoration: none;
+    color: $black;
+    &:after {
+      left: 0;
+      right: 0;
+      opacity:1;
+    }
+  }
+
+
+  &.text-white {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+    &:after {
+      background: #fff;
+    }
+  }
+}

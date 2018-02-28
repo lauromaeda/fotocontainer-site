@@ -1,0 +1,72 @@
+<div class="page-header navbar navbar-toggleable-md {{class}}">
+  <div class="container">
+
+    {% if 'title' in show %}
+    <h2 class="title navbar-brand hide">{{ title }}</h2>
+    {% endif %}
+
+
+    {% if 'btn-back' in show %}
+    <div class="navbar-collapse">
+      <a href="/gallery" class="btn btn-sm btn-pu btn-circle"><i class="icon-left-open"></i></a>
+      <span class="pl-2 pt-1 text-uppercase"> Voltar para Galeria</span>
+    </div>
+    {% endif %}
+
+    <div class="navbar-collapse">
+
+        {% if 'filters-list' in show %}
+          {{ include('partials/components/filters-list.twig') }}
+        {% endif %}
+
+        {% if 'form-search' in show %}
+        <form class="form-inline form-search ml-auto" action="#">
+          <input id="keyword-search" class="form-control" type="text" placeholder="BUSCA">
+          <button class="btn btn-search" type="submit"><i class="icon-search"></i></button>
+        </form>
+        {% endif %}
+
+        {% if 'nav-gallery' in show %}
+        <ul class="navbar-nav ml-0">
+          <li class="nav-item ml-4">
+            <button class="btn btn-{{grav.user.sigla}} btn-sm btn-outline-primary text-uppercase px-4" data-toggle="modal" data-target=".modal-filters">Filtros</button>
+          </li>
+          <li class="nav-item ml-4">
+            <a class="btn btn-sm btn-primary btn-circle" data-toggle="tooltip" data-placement="left" href="#" title="Filtre por características e ache a foto ideal para o seu blog. Imagens sensacionais!"><i class="icon-help"></i></a>
+          </li>
+        </ul>
+        {% endif %}
+
+        {% if 'add-gallery' in show %}
+          <a href="{{ base_url_absolute  }}/gallery/add" class="gallery-intro-step-1 btn btn-green ml-auto add-image-album">Adicionar álbum</a>
+        {% endif %}
+
+        {% if 'add-image' in show and profile == 2 %}
+        <button type="button" class="btn btn-green ml-auto add-image-album" name="button">Adicionar foto</button>
+        {% endif %}
+
+        {% if 'download-zip' in show and profile == 3 %}
+          <a class="btn btn-green ml-auto download-btn">Baixar álbum completo</a><br>
+          <a href="#" style="display: none;" class="btn btn-green ml-auto selected-btn">Baixar fotos selecionadas.</a><br>
+        {% endif %}
+
+        {% if 'nav-add-gallery' in show %}
+        <ul class="nav nav-tabs nav-steps ml-auto {{class_nav_steps}}">
+          <li class="nav-item">
+            <a class="nav-link active link-step link-step1" data-index="1" data-toggle="tab" href="#evento" role="tab"><span class="badge">1</span> Evento</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-step link-step2" data-index="2" data-toggle="tab" href="#fornecedores" role="tab"><span class="badge">2</span> Fornecedores </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-step link-step3" data-index="3" data-toggle="tab" href="#caracteristicas" role="tab"><span class="badge">3</span> Características</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-step link-step4" data-index="4" data-toggle="tab" href="#fotos" role="tab"><span class="badge">4</span> Fotos</a>
+          </li>
+        </ul>
+        {% endif %}
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+.nav-steps {
+  border: 0;
+  .nav-item:last-child {
+    .nav-link {
+      border-right: 0;
+    }
+  }
+
+  .nav-link {
+    background: transparent;
+    border-color: #ddd #ddd #fff;
+    border: 0;
+    color: #ddd;
+    border-right: 1px solid #ddd;
+    transition: .3s;
+
+
+    .badge {
+      background: $white;
+      line-height: 30px;
+      width: 30px;
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+      border-radius: 50%;
+      color: $gray-light;
+      border: 1px solid #ddd;
+      box-sizing: content-box;
+      font-weight: 400;
+      transition: .3s;
+    }
+
+    &.active {
+      color: $gray;
+      background: transparent;
+      .badge {
+        background-color: $gray;
+        border-color: $gray;
+        color:$white;
+      }
+    }
+  }
+
+  &.nav-steps-ph {
+    .nav-link {
+      &.active {
+        .badge {
+          background-color: $color-ph;
+          border-color: $color-ph;
+        }
+      }
+    }
+  }
+  &.nav-steps-pu {
+    .nav-link {
+      &.active {
+        .badge {
+          background-color: $color-pu;
+          border-color: $color-pu;
+        }
+      }
+    }
+  }
+}

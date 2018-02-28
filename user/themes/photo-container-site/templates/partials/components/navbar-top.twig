@@ -1,0 +1,62 @@
+{% import "functions.twig" as functions %}
+
+<nav class="bg-{{grav.user.sigla}} navbar navbar-toggleable-md navbar-inverse navbar-top">
+  <div class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navbar-top .navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/gallery"><img src="{{ url('theme://resources/images/logo-white.svg') }}"/></a>
+
+    <div class="collapse navbar-collapse ">
+      <ul class="navbar-nav ml-auto">
+
+        <!-- { % if profile == 2 %} -->
+        <li class="nav-item {{ page.slug() in ["gallery", "photos"] ? 'active' : '' }} ">
+          <a class="nav-link" href="/gallery"><i class="icon-picture"></i> Galeria</a>
+        {#</li>#}
+          {#<li class="nav-item {{ active == "historic" ? 'active' : '' }} ">#}
+          {#<a class="nav-link" href="#"><i class="icon-doc-text"></i> Histórico</a>#}
+        {#</li>#}
+          {#<li class="nav-item {{ active == "notifications" ? 'active' : '' }} ">#}
+          {#<a class="nav-link" href="#"><i class="icon-bell"></i> Solicitações</a>#}
+        {#</li>#}
+        <!-- { % endif %} -->
+
+        {% if profile == 3 %}
+        </li>
+          <li class="nav-item {{ page.slug() == "historic" ? 'active' : '' }} ">
+          <a class="nav-link" href="/gallery/historic"><i class="icon-doc-text"></i> Histórico</a>
+        </li>
+        {% endif %}
+
+        {% if profile == 2 %}
+        <li class="approvals nav-item  {{ active == "approvals" ? 'active' : '' }} ">
+          <a class="nav-link" href="/approvals">
+            <i class="icon-bell"></i>
+            Solicitações
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item {{ active == "profile" ? 'active' : '' }} ">
+          <a class="bg-{{grav.user.sigla}} gallery-intro-step-2 nav-link" href="/profile"><i class="icon-user"></i> Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link photocontainer-logout" href="/logout"><i class="icon-logout"></i> Sair</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-help btn-sm btn-circle" href="javascript:void(0);" onclick="startIntro();">
+            <i class="icon-help"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+$( document ).ready(function() {
+  Logout.attachEvent()
+  Utils.notifications()
+})
+</script>

@@ -1,0 +1,98 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+
+<div class="app page-login page-signup" style="background-image: url({{ url('theme://resources/images/landing-bg.jpg') }})">
+  <div class="page-login-inner">
+    <div class="login-box landingpage-box">
+      <form id="landing-form" class="form-validate" method="post" action="">
+
+        <img class="img-fluid" src="{{ url('theme://resources/images/logo-land.png') }}"/>
+        <h3>Fotógrafos e Publishers</h3>
+        <h2>Seja um dos <b>200</b> fundadores e tenha vantagens para sempre!</h2>
+        <h4>Cadastre-se agora e receba mais informações em breve!</h4>
+          <div class="form-check form-check-alt text-center mb-3">
+            <label class="form-check-label mr-3" onclick="$('#campo-url-blog').collapse('hide');">
+              <input type="radio" class="form-check-input" name="input_type" value="photographer" required="">
+            <span>  Fotógrafo</span>
+            </label>
+            <label class="form-check-label" onclick="$('#campo-url-blog').collapse('show');">
+              <input type="radio" class="form-check-input" name="input_type" value="publisher" required="">
+              <span>Publisher</span>
+            </label>
+            <label class="error msg-error" for="input_type" style="display: none;"></label>
+          </div>
+
+          <div class="form-group">
+            <label for="input_name" class="sr-only">Seu nome</label>
+            <input type="text" name="input_name" id="input_name" class="form-control" placeholder="Nome" required="">
+            <label class="error msg-error" for="input_name" style="display: none;"></label>
+          </div>
+          <div class="form-group">
+            <label for="input_email" class="sr-only">Seu melhor e-mail</label>
+            <input type="email" name="input_email" id="input_email" class="form-control" placeholder="E-mail" required="">
+            <label class="error msg-error" for="input_email" style="display: none;"></label>
+          </div>
+          <div class="form-group">
+            <label for="input_remail" class="sr-only">Telefone</label>
+            <input type="text" name="input_phone" id="input_phone" class="form-control phone-mask" placeholder="Telefone">
+            <label class="error msg-error" for="input_phone" style="display: none;"></label>
+          </div>
+          <div id="campo-url-blog" class="collapse">
+            <div class="form-group">
+              <label for="input_blog" class="sr-only">Seu site ou blog</label>
+              <input type="text" name="input_blog" id="input_blog" class="form-control" placeholder="URL do blog">
+              <label class="error msg-error" for="input_blog" style="display: none;"></label>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button class="btn btn-submit btn-ph" type="submit">Enviar</button>
+          </div>
+  </form>
+
+    </div>
+    <div class="landing-banner">Conexões que mudam a vida
+    </div>
+
+    {#{ include('partials/components/login-footer.twig') }#}
+  </div>
+</div>
+{{ include('partials/components/modal-alert.twig') }}
+
+<script>
+
+$(document).ready(function() {
+  Contact.total()
+
+  $(".form-validate.form-signin").validate({
+    rules: {
+      input_email: {
+        required: true
+      },
+      input_password: {
+        required: true
+      }
+    }
+  });
+
+  $(".form-validate.form-profile").validate({
+    rules: {
+      input_email: {
+        required: true
+      },
+      input_password: {
+        required: true
+      }
+    }
+  });
+
+  $("#landing-form").validate({
+    submitHandler: function () {
+      Contact.create()
+    }
+  });
+})
+
+</script>
+{% endblock %}

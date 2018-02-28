@@ -1,0 +1,51 @@
+{% for photo in event.photos %}
+  {%
+    include 'partials/components/render_thumb.twig' with {
+      'event_id': event.id,
+      'authorized': event.authorized,
+      'data': photo,
+      'logged_user_id': logged_user_id,
+      'api_endpoint': api_endpoint,
+      'image_cdn': image_cdn,
+      'profile': 3,
+      'ratio': '16by9',
+      'type': 'gallery',
+      'col': 'col-lg-6 col-md-4 col-sm-6 col-12',
+      'show': [
+        'icon',
+        'photo-name',
+        'album-type',
+        'album-name',
+        'image-count',
+        'fav-count',
+        'search'
+      ]
+    }
+  %}
+{% endfor %}
+
+<script>
+$( document ).ready(function(){
+  Event.likePhoto(localStorage.endpoint);
+  Event.dislikePhoto(localStorage.endpoint);
+  Event.requestDownload(localStorage.endpoint);
+
+  $('#previews').lightGallery({
+    subHtmlSelectorRelative: true
+  });
+
+  $('.thumb-gallery .nav-item').click(function( event ) {
+    event.stopPropagation();
+  });
+
+  $('.thumb-gallery .view-image').click(function( event ) {
+    $(this).closest(".thumb-item").click();
+  });
+
+  $('.download-image a').on('click', function (e) {
+    $('.modal-publisher-publish').data('link-for-action', $(this).data('link-for-action'))
+    $('.modal-publish').modal()
+  })
+});
+
+</script>
